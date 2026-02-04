@@ -8,7 +8,7 @@ namespace opr_ocenjevanje
 {
     public class Spalnica : Prostor
     {
-        public const int MaxStvari = 6;
+        public const int MaxStvari = 7;
 
         public Spalnica() : base("Kuhinja") { }
 

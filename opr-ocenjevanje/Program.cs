@@ -1,37 +1,37 @@
-﻿using System;
+﻿using classLibrary;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace opr_ocenjevanje
 {
     internal static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-             
         }
-        public static List<Prostor> Prostors { get; } = new List<Prostor>()
+
+        // Glavni seznam prostorov (uporablja ga UI).
+        public static List<classLibrary.Prostor> Prostori { get; } = new List<classLibrary.Prostor>
         {
             new Kuhinja(),
-            new Dnevna_soba(),
+            new DnevnaSoba(),
             new Spalnica(),
             new Kopalnica(),
-            new Garaža(),
+            new Garaza(),
             new Klet(),
         };
 
-        public static Prostor GetProstorByName(string name)//Poišče sobo po imenu
+        // Združljivost za stare reference (npr. Program.Prostors iz prve faze).
+        public static List<classLibrary.Prostor> Prostors => Prostori;
+
+        public static classLibrary.Prostor GetProstorByName(string ime)
         {
-            return Prostors.Find(r => r.ProstorName == name);
+            return Prostori.Find(prostor => prostor.ImeProstora == ime);
         }
     }
 }

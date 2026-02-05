@@ -10,7 +10,7 @@ namespace classLibrary
         public static int SteviloProstorov { get; private set; }
         public string ImeProstora { get; }
 
-        // Polimorfizem: vsak podrazred sam določi maksimalno število stvari.
+        // vsak podrazred sam določi maksimalno število stvari.
         public abstract int MaxStvari { get; }
 
         protected Prostor(string imeProstora)
@@ -21,7 +21,7 @@ namespace classLibrary
 
         public IReadOnlyList<Stvar> VseStvari => _stvari.AsReadOnly();
 
-        // Indekser: dostop do posamezne stvari v prostoru po številki.
+        // dostop do posamezne stvari v prostoru po številki.
         public Stvar this[int index]
         {
             get => _stvari[index];
@@ -44,7 +44,7 @@ namespace classLibrary
             return _stvari.Remove(stvar);
         }
 
-        // Polimorfizem: podrazredi lahko prepišejo opis in dodajo svojo specializacijo.
+        // podrazredi lahko prepišejo opis in dodajo svojo specializacijo.
         public virtual string Opis()
         {
             return $"{ImeProstora}: {_stvari.Count}/{MaxStvari} stvari";

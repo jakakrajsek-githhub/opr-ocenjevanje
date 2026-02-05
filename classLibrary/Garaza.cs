@@ -4,7 +4,7 @@ namespace classLibrary
     {
         public Garaza() : base("Garaža") { }
 
-        // Polimorfizem (override): Garaža ima svojo omejitev kapacitete.
+
         public override int MaxStvari => 8;
 
         // Polimorfizem (override): Garaža razširi osnovni opis prostora.

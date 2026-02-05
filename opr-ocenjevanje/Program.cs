@@ -6,7 +6,7 @@ namespace opr_ocenjevanje
 {
     internal static class Program
     {
-        [STAThread]
+        
         static void Main()
         {
             Application.EnableVisualStyles();

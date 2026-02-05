@@ -7,7 +7,7 @@ namespace classLibrary
 
         public override int MaxStvari => 8;
 
-        // Polimorfizem (override): Garaža razširi osnovni opis prostora.
+        // Garaža razširi osnovni opis prostora.
         public override string Opis() => base.Opis() + " (orodje in prevoz)";
     }
 }

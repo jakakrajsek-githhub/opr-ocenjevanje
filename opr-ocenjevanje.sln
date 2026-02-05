@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36202.13 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "opr-ocenjevanje", "opr-ocenjevanje\opr-ocenjevanje.csproj", "{320A0943-A985-4B3C-956E-4FFEA3F769E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "classLibrary", "classLibrary\classLibrary.csproj", "{5A66989D-42E4-4D0A-B5B8-68BE2FC5B8F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{320A0943-A985-4B3C-956E-4FFEA3F769E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{320A0943-A985-4B3C-956E-4FFEA3F769E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{320A0943-A985-4B3C-956E-4FFEA3F769E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A66989D-42E4-4D0A-B5B8-68BE2FC5B8F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A66989D-42E4-4D0A-B5B8-68BE2FC5B8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A66989D-42E4-4D0A-B5B8-68BE2FC5B8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A66989D-42E4-4D0A-B5B8-68BE2FC5B8F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

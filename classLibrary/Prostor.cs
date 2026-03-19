@@ -15,7 +15,7 @@ namespace classLibrary
 
         private string _imeProstora;
 
-        public string ImeProstora  //Lastnost private in public
+        public string ImeProstora  //Lastnost private in public.
         {
             get { return _imeProstora; }
             set

@@ -1,16 +1,37 @@
+using System;
 using System.Collections.Generic;
 
 namespace classLibrary
 {
-    // Abstraktni razred + implementacija vmesnikov (IOpisljivo, IProstorInventar).
+    // Delegate za dogodke
+    public delegate void StvarDogodekHandler(Stvar stvar);
+
+    // Abstraktni razred + implementacija vmesnikov
     public abstract class Prostor : IOpisljivo, IProstorInventar
     {
         private readonly List<Stvar> _stvari = new List<Stvar>();
 
         public static int SteviloProstorov { get; private set; }
-        public string ImeProstora { get; }
 
-        // Polimorfizem: vsak podrazred sam določi maksimalno število stvari.
+        private string _imeProstora;
+
+        public string ImeProstora  //Lastnost
+        {
+            get { return _imeProstora; }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    _imeProstora = value;
+                }
+            }
+        }
+
+        // Eventi
+        public event StvarDogodekHandler StvarDodana;
+        public event StvarDogodekHandler StvarOdstranjena;
+
+        // Vsak podrazred določi max
         public abstract int MaxStvari { get; }
 
         protected Prostor(string imeProstora)
@@ -19,9 +40,14 @@ namespace classLibrary
             SteviloProstorov++;
         }
 
+        // Read-only seznam
         public IReadOnlyList<Stvar> VseStvari => _stvari.AsReadOnly();
 
-        // Indekser: dostop do posamezne stvari v prostoru po številki.
+        // Dodatne lastnosti
+        public int SteviloStvari => _stvari.Count;
+        public bool JePoln => _stvari.Count >= MaxStvari;
+
+        // Indeksator
         public Stvar this[int index]
         {
             get => _stvari[index];
@@ -30,21 +56,30 @@ namespace classLibrary
 
         public virtual bool DodajStvar(Stvar stvar)
         {
-            if (stvar == null || _stvari.Count >= MaxStvari)
-            {
+            if (stvar == null || JePoln)
                 return false;
-            }
 
             _stvari.Add(stvar);
+
+            // sproži event
+            StvarDodana?.Invoke(stvar);
+
             return true;
         }
 
         public virtual bool OdstraniStvar(Stvar stvar)
         {
-            return _stvari.Remove(stvar);
+            bool removed = _stvari.Remove(stvar);
+
+            if (removed)
+            {
+                // sproži event
+                StvarOdstranjena?.Invoke(stvar);
+            }
+
+            return removed;
         }
 
-        // Polimorfizem: podrazredi lahko prepišejo opis in dodajo svojo specializacijo.
         public virtual string Opis()
         {
             return $"{ImeProstora}: {_stvari.Count}/{MaxStvari} stvari";

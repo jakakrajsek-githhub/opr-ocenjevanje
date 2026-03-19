@@ -26,7 +26,7 @@ namespace opr_ocenjevanje
             new Klet(),
         };
 
-        // Združljivost za stare reference (npr. Program.Prostors iz prve faze).
+        // Združljivost za stare reference
         public static List<classLibrary.Prostor> Prostors => Prostori;
 
         public static classLibrary.Prostor GetProstorByName(string ime)

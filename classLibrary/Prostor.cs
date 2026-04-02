@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace classLibrary
 {
@@ -15,7 +16,7 @@ namespace classLibrary
 
         private string _imeProstora;
 
-        public string ImeProstora  //Lastnost private in public.
+        public string ImeProstora  //Lastnost private in public.inhj9uioh98oh
         {
             get { return _imeProstora; }
             set
@@ -33,6 +34,10 @@ namespace classLibrary
 
         // Vsak podrazred določi max
         public abstract int MaxStvari { get; }
+
+        // Predlogi za combobox v UI (kaj običajno sodi v prostor).
+        // Po domače: ko klikneš sobo, dobiš "smiselne stvari" za dodat.
+        public virtual IReadOnlyList<string> PredlaganeStvari => ItemPravila.PredlaganeZaProstor(ImeProstora);
 
         protected Prostor(string imeProstora)
         {
@@ -54,9 +59,22 @@ namespace classLibrary
             set => _stvari[index] = value;
         }
 
+        // Omejitve po centralnih pravilih predmet -> dovoljeni prostori.
+        // Če stvar ne paše v sobo, jo tukaj zavrnemo.
+        public virtual bool LahkoVsebuje(Stvar stvar)
+        {
+            return stvar != null
+                && !string.IsNullOrWhiteSpace(stvar.Ime)
+                && ItemPravila.LahkoVProstoru(stvar.Ime, ImeProstora);
+        }
+
         public virtual bool DodajStvar(Stvar stvar)
         {
-            if (stvar == null || JePoln)
+            if (stvar == null || JePoln || !LahkoVsebuje(stvar))
+                return false;
+
+            // Da ne bo "dve isti stvari v isti sobi", to tukaj ustavimo.
+            if (_stvari.Any(s => s.Equals(stvar)))
                 return false;
 
             _stvari.Add(stvar);

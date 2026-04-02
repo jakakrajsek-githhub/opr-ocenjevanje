@@ -5,7 +5,7 @@ namespace classLibrary
         public Kopalnica() : base("Kopalnica") { }
 
         //Kopalnica ima svojo omejitev kapacitete.
-        public override int MaxStvari => 4;
+        public override int MaxStvari => 8;
 
         //Kopalnica razširi osnovni opis prostora.
         public override string Opis() => base.Opis() + " (higiena)";

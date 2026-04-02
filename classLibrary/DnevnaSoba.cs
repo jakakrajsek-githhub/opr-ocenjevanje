@@ -5,7 +5,7 @@ namespace classLibrary
         public DnevnaSoba() : base("Dnevna soba") { }
 
         //Dnevna soba ima svojo omejitev kapacitete.
-        public override int MaxStvari => 6;
+        public override int MaxStvari => 12;
 
         //Dnevna soba razširi osnovni opis prostora.
         public override string Opis() => base.Opis() + " (udobje in druženje)";

@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>classLibrary</name>
+  </assembly>
+  <members>
+
+    <member name="T:classLibrary.StvarDogodekHandler">
+      <summary>
+        Delegate za obravnavo dogodkov, ki se sprozijo ob
+        dodajanju ali odstranjevanju stvari iz prostora.
+      </summary>
+      <param name="stvar">
+        Stvar, ki je bila dodana ali odstranjena.
+      </param>
+    </member>
+
+    <member name="T:classLibrary.IOpisljivo">
+      <summary>
+        Vmesnik, ki zahteva, da vsak razred, ki ga implementira,
+        zna vrniti tekstovni opis samega sebe.
+      </summary>
+    </member>
+
+    <member name="M:classLibrary.IOpisljivo.Opis">
+      <summary>
+        Vrne opis objekta kot besedilni niz.
+      </summary>
+      <returns>Besedilni opis objekta.</returns>
+    </member>
+
+    <member name="T:classLibrary.IProstorInventar">
+      <summary>
+        Vmesnik, ki standardizira upravljanje z inventarjem prostora.
+        Zagotavlja dostop do seznama stvari in indekserski dostop
+        po poziciji.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.IProstorInventar.Item(System.Int32)">
+      <summary>
+        Indekser, ki omogoca branje in pisanje posamezne stvari
+        v prostoru po indeksu.
+      </summary>
+      <param name="index">
+        Zaporedna stevilka stvari (zacne se z 0).
+      </param>
+      <returns>Stvar na podanem indeksu.</returns>
+    </member>
+
+    <member name="P:classLibrary.IProstorInventar.VseStvari">
+      <summary>
+        Vrne bralno listo vseh stvari, ki se trenutno nahajajo
+        v prostoru.
+      </summary>
+      <returns>
+        Bralni seznam objektov tipa Stvar.
+      </returns>
+    </member>
+
+    <member name="T:classLibrary.Stvar">
+      <summary>
+        Predstavlja predmet (stvar), ki ga je mogoce shraniti
+        v prostoru. Vsebuje ime predmeta in zagotavlja enakost
+        na podlagi tega imena.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.Stvar.Ime">
+      <summary>
+        Ime predmeta. Setter zavrne prazno vrednost ali
+        vrednost, ki vsebuje samo presledke.
+      </summary>
+    </member>
+
+    <member name="M:classLibrary.Stvar.#ctor(System.String)">
+      <summary>
+        Ustvari nov predmet z navedenim imenom.
+      </summary>
+      <param name="ime">
+        Ime predmeta. Ne sme biti prazno ali samo presledki.
+      </param>
+    </member>
+
+    <member name="M:classLibrary.Stvar.ToString">
+      <summary>
+        Vrne ime predmeta kot besedilno predstavitev objekta.
+      </summary>
+      <returns>Ime predmeta.</returns>
+    </member>
+
+    <member name="M:classLibrary.Stvar.Equals(System.Object)">
+      <summary>
+        Primerja dva predmeta po imenu. Dva predmeta sta enaka,
+        ce imata enako ime.
+      </summary>
+      <param name="obj">Objekt za primerjavo.</param>
+      <returns>
+        true, ce imata objekta enako ime; sicer false.
+      </returns>
+    </member>
+
+    <member name="M:classLibrary.Stvar.GetHashCode">
+      <summary>
+        Vrne zgosceno vrednost predmeta na podlagi njegovega
+        imena.
+      </summary>
+      <returns>Celestevilska zgoscena vrednost.</returns>
+    </member>
+
+    <member name="T:classLibrary.Prostor">
+      <summary>
+        Abstraktni razred, ki predstavlja splosni prostor v hisi.
+        Implementira vmesnika IOpisljivo in IProstorInventar.
+        Vsebuje logiko za dodajanje, odstranjevanje in validacijo
+        predmetov.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.Prostor.SteviloProstorov">
+      <summary>
+        Staticna lastnost, ki hrani skupno stevilo ustvarjenih
+        prostorskih objektov. Vrednost se poveca ob vsakem klicu
+        konstruktorja.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.Prostor.ImeProstora">
+      <summary>
+        Ime prostora (npr. Kuhinja, Spalnica). Setter zavrne
+        prazno vrednost.
+      </summary>
+    </member>
+
+    <member name="E:classLibrary.Prostor.StvarDodana">
+      <summary>
+        Dogodek, ki se sprozi, ko je bila stvar uspesno dodana
+        v prostor.
+      </summary>
+    </member>
+
+    <member name="E:classLibrary.Prostor.StvarOdstranjena">
+      <summary>
+        Dogodek, ki se sprozi, ko je bila stvar uspesno
+        odstranjena iz prostora.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.Prostor.MaxStvari">
+      <summary>
+        Abstraktna lastnost — vsak podrazred doloci svojo
+        maksimalno kapaciteto predmetov.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.Prostor.PredlaganeStvari">
+      <summary>
+        Vrne seznam predlaganih predmetov za ta prostor,
+        primeren za prikaz v ComboBox-u. Temelji na centralnih
+        pravilih razreda ItemPravila.
+      </summary>
+      <returns>
+        Bralni seznam imen predmetov, ki sodijo v ta prostor.
+      </returns>
+    </member>
+
+    <member name="M:classLibrary.Prostor.#ctor(System.String)">
+      <summary>
+        Inicializira nov prostor z navedenim imenom in poveca
+        staticni stevec prostorskih objektov.
+      </summary>
+      <param name="imeProstora">
+        Ime prostora, ki ga nastavljamo ob ustvaritvi.
+      </param>
+    </member>
+
+    <member name="P:classLibrary.Prostor.VseStvari">
+      <summary>
+        Vrne bralni seznam vseh stvari v prostoru.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.Prostor.SteviloStvari">
+      <summary>
+        Vrne trenutno stevilo predmetov v prostoru.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.Prostor.JePoln">
+      <summary>
+        Vrne true, ce je prostor dosegel svojo maksimalno
+        kapaciteto.
+      </summary>
+    </member>
+
+    <member name="P:classLibrary.Prostor.Item(System.Int32)">
+      <summary>
+        Indekser za dostop do posamezne stvari v prostoru
+        po indeksu.
+      </summary>
+      <param name="index">
+        Indeks predmeta v notranjem seznamu (zacne se pri 0).
+      </param>
+      <returns>Objekt Stvar na podanem mestu.</returns>
+    </member>
+
+    <member name="M:classLibrary.Prostor.LahkoVsebuje(classLibrary.Stvar)">
+      <summary>
+        Preveri, ali je dano stvar dovoljeno shraniti v ta
+        prostor po centralnih pravilih.
+      </summary>
+      <param name="stvar">Stvar, katero preverjamo.</param>
+      <returns>
+        true, ce je stvar veljavna in dovoljena v tem prostoru;
+        sicer false.
+      </returns>
+    </member>
+
+    <member name="M:classLibrary.Prostor.DodajStvar(classLibrary.Stvar)">
+      <summary>
+        Poskusa dodati stvar v prostor. Zavrne jo, ce je prostor
+        poln, stvar je null, ni dovoljena ali je ze prisotna.
+        Ob uspesnem dodajanju sprozi dogodek StvarDodana.
+      </summary>
+      <param name="stvar">Stvar, ki jo dodajamo.</param>
+      <returns>
+        true, ce je bila stvar uspesno dodana; sicer false.
+      </returns>
+    </member>
+
+    <member name="M:classLibrary.Prostor.OdstraniStvar(classLibrary.Stvar)">
+      <summary>
+        Odstrani podano stvar iz prostora. Ce stvar ni prisotna,
+        ne naredi nic. Ob uspesni odstranitvi sprozi dogodek
+        StvarOdstranjena.
+      </summary>
+      <param name="stvar">Stvar, ki jo odstranjujemo.</param>
+      <returns>
+        true, ce je bila stvar uspesno odstranjena; sicer false.
+      </returns>
+    </member>
+
+    <member name="M:classLibrary.Prostor.Opis">
+      <summary>
+        Vrne besedilni opis prostora v obliki
+        "ImeProstora: X/MaxStvari stvari".
+      </summary>
+      <returns>
+        Besedilni opis z imenom prostora in zapolnjenostjo.
+      </returns>
+    </member>
+
+    <member name="M:classLibrary.Prostor.ToString">
+      <summary>
+        Vrne ime prostora kot besedilno predstavitev objekta.
+      </summary>
+      <returns>Ime prostora.</returns>
+    </member>
+
+    <member name="T:classLibrary.Kuhinja">
+      <summary>
+        Razred, ki predstavlja kuhinjo. Podeduje Prostor,
+        doloci kapaciteto 12 predmetov in doda opis
+        "(vmesniki in posoda)".
+      </summary>
+    </member>
+    <member name="P:classLibrary.Kuhinja.MaxStvari">
+      <summary>Maksimalno stevilo predmetov v kuhinji je 12.</summary>
+    </member>
+    <member name="M:classLibrary.Kuhinja.Opis">
+      <summary>
+        Vrne razsirjen opis kuhinje z dodatkom
+        "(vmesniki in posoda)".
+      </summary>
+      <returns>Besedilni opis prostora.</returns>
+    </member>
+
+    <member name="T:classLibrary.DnevnaSoba">
+      <summary>
+        Razred, ki predstavlja dnevno sobo. Podeduje Prostor,
+        doloci kapaciteto 12 predmetov in doda opis
+        "(udobje in druzenje)".
+      </summary>
+    </member>
+    <member name="P:classLibrary.DnevnaSoba.MaxStvari">
+      <summary>
+        Maksimalno stevilo predmetov v dnevni sobi je 12.
+      </summary>
+    </member>
+    <member name="M:classLibrary.DnevnaSoba.Opis">
+      <summary>
+        Vrne razsirjen opis dnevne sobe z dodatkom
+        "(udobje in druzenje)".
+      </summary>
+      <returns>Besedilni opis prostora.</returns>
+    </member>
+
+    <member name="T:classLibrary.Spalnica">
+      <summary>
+        Razred, ki predstavlja spalnico. Podeduje Prostor,
+        doloci kapaciteto 12 predmetov in doda opis "(pocitek)".
+      </summary>
+    </member>
+    <member name="P:classLibrary.Spalnica.MaxStvari">
+      <summary>
+        Maksimalno stevilo predmetov v spalnici je 12.
+      </summary>
+    </member>
+    <member name="M:classLibrary.Spalnica.Opis">
+      <summary>
+        Vrne razsirjen opis spalnice z dodatkom "(pocitek)".
+      </summary>
+      <returns>Besedilni opis prostora.</returns>
+    </member>
+
+    <member name="T:classLibrary.Kopalnica">
+      <summary>
+        Razred, ki predstavlja kopalnico. Podeduje Prostor,
+        doloci kapaciteto 8 predmetov in doda opis "(higiena)".
+      </summary>
+    </member>
+    <member name="P:classLibrary.Kopalnica.MaxStvari">
+      <summary>
+        Maksimalno stevilo predmetov v kopalnici je 8.
+      </summary>
+    </member>
+    <member name="M:classLibrary.Kopalnica.Opis">
+      <summary>
+        Vrne razsirjen opis kopalnice z dodatkom "(higiena)".
+      </summary>
+      <returns>Besedilni opis prostora.</returns>
+    </member>
+
+    <member name="T:classLibrary.Garaza">
+      <summary>
+        Razred, ki predstavlja garaso. Podeduje Prostor,
+        doloci kapaciteto 12 predmetov in doda opis
+        "(orodje in prevoz)".
+      </summary>
+    </member>
+    <member name="P:classLibrary.Garaza.MaxStvari">
+      <summary>Maksimalno stevilo predmetov v garazi je 12.</summary>
+    </member>
+    <member name="M:classLibrary.Garaza.Opis">
+      <summary>
+        Vrne razsirjen opis garaze z dodatkom
+        "(orodje in prevoz)".
+      </summary>
+      <returns>Besedilni opis prostora.</returns>
+    </member>
+
+    <member name="T:classLibrary.Klet">
+      <summary>
+        Razred, ki predstavlja klet. Podeduje Prostor,
+        doloci kapaciteto 16 predmetov in doda opis
+        "(shranjevanje)".
+      </summary>
+    </member>
+    <member name="P:classLibrary.Klet.MaxStvari">
+      <summary>Maksimalno stevilo predmetov v kleti je 16.</summary>
+    </member>
+    <member name="M:classLibrary.Klet.Opis">
+      <summary>
+        Vrne razsirjen opis kleti z dodatkom "(shranjevanje)".
+      </summary>
+      <returns>Besedilni opis prostora.</returns>
+    </member>
+
+    <member name="T:classLibrary.PraviloPredmeta">
+      <summary>
+        Podatkovni razred, ki hrani ime predmeta in seznam
+        prostorskih imen, v katerih je ta predmet dovoljen.
+      </summary>
+    </member>
+    <member name="P:classLibrary.PraviloPredmeta.ImePredmeta">
+      <summary>Ime predmeta (npr. "zobna scetka", "avto").</summary>
+    </member>
+    <member name="P:classLibrary.PraviloPredmeta.DovoljeniProstori">
+      <summary>
+        Seznam imen prostorskih razredov, v katerih je predmet
+        dovoljen.
+      </summary>
+    </member>
+    <member name="M:classLibrary.PraviloPredmeta.#ctor(System.String,System.String[])">
+      <summary>
+        Ustvari novo pravilo za predmet z naborom dovoljenih
+        prostorov.
+      </summary>
+      <param name="imePredmeta">
+        Ime predmeta, na katerega se pravilo nanasa.
+      </param>
+      <param name="dovoljeniProstori">
+        Prostori, v katerih je predmet dovoljen (params niz).
+      </param>
+    </member>
+
+    <member name="T:classLibrary.ItemPravila">
+      <summary>
+        Staticni razred s centralnim seznamom pravil, ki
+        dolocajo, kateri predmet je dovoljen v katerem prostoru.
+        Uporablja se pri validaciji v razredu Prostor.
+      </summary>
+    </member>
+    <member name="M:classLibrary.ItemPravila.LahkoVProstoru(System.String,System.String)">
+      <summary>
+        Preveri, ali je predmet z navedenim imenom dovoljen v
+        prostoru z navedenim imenom. Primerjava je neobcutljiva
+        na velikost crk. Ce predmet ni v pravilih, vrne false.
+      </summary>
+      <param name="imePredmeta">
+        Ime predmeta, ki ga preverjamo.
+      </param>
+      <param name="imeProstora">
+        Ime prostora, v katerega bi radi dodali predmet.
+      </param>
+      <returns>
+        true, ce je predmet dovoljen v prostoru; sicer false.
+      </returns>
+    </member>
+    <member name="M:classLibrary.ItemPravila.PredlaganeZaProstor(System.String)">
+      <summary>
+        Vrne abecedno urejen seznam imen predmetov, ki so
+        dovoljeni v prostor z navedenim imenom. Namenjen
+        polnitvi ComboBox-a v uporabniskem vmesniku.
+      </summary>
+      <param name="imeProstora">
+        Ime prostora, za katerega iscemo predlagane predmete.
+      </param>
+      <returns>
+        Bralni seznam imen predmetov, primernih za podani
+        prostor.
+      </returns>
+    </member>
+
+  </members>
+</doc>

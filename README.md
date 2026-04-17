@@ -29,20 +29,4 @@ Označite predmet na seznamu in kliknite Odstrani za odstranitev.
 Izberite ciljni prostor v desnem spustnem meniju in kliknite Premakni za premik označenega predmeta.
 
 
-Struktura projekta
-opr-ocenjevanje/
-├── opr-ocenjevanje/       # Windows Forms projekt (UI)
-│   ├── Form1.cs
-│   ├── Form1.Designer.cs
-│   └── Program.cs
-├── classLibrary/          # Knjižnica razredov
-│   ├── Prostor.cs
-│   ├── Stvar.cs
-│   ├── ItemPravila.cs
-│   ├── DnevnaSoba.cs
-│   ├── Spalnica.cs
-│   ├── Kuhinja.cs
-│   ├── Kopalnica.cs
-│   ├── Garaza.cs
-│   └── Klet.cs
-└── opr-ocenjevanje.sln
+
